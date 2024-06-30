@@ -46,7 +46,7 @@ for i in range(1, len(gray_images)):
                 if len(speed_estimates) > 5:
                     speed_estimates.pop(0)
                 smoothed_speed = np.mean(speed_estimates)
-                print(f'Estimated Speed at frame {i}: {smoothed_speed:.2f} meters/second')
+                print(f'estimated speed at frame {i}: {smoothed_speed:.2f} m/s')
                 previous_points = good_new.reshape(-1, 1, 2)
             else:
                 previous_points = None
