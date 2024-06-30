@@ -1,9 +1,8 @@
 import os
 import cv2
 import numpy as np
-from ekf.py import ExtendedKalmanFilter
-from frame.py import extract_frames, load_images
-
+from ekf import ExtendedKalmanFilter
+#from utils import load_images
 
 frame_rate = 30
 scale_factor = 0.1
@@ -16,10 +15,11 @@ ekf = ExtendedKalmanFilter(dt=1.0 / frame_rate,
                            process_noise_cov=process_noise_cov,
                            measurement_noise_cov=measurement_noise_cov)
 
-video_path = 'path_to_your_video.mp4'
 image_folder = 'images'
-extract_frames(video_path, image_folder)
-gray_images = load_images(image_folder)
+image_files = sorted([os.path.join(image_folder, img) for img in os.listdir(image_folder) if img.endswith('.jpg')])
+
+gray_images = [cv2.imread(img, cv2.IMREAD_GRAYSCALE) for img in image_files]
+
 
 previous_points = None
 speed_estimates = []
